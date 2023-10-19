@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<!-- Ниже строчка, которая указывает, что мы используем таймлиф -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Все пользователи</title>
+</head>
+<body>
+
+<div th:each="user : ${users}">
+  <a th:href="@{/users/{id} (id=${user.getId()})}" th:text="${user.getName() +', '+ user.getSurname()+', '+ user.getEmail()}">user</a>
+
+</div>
+
+<br/>
+<hr/>
+
+<br/>
+<br/>
+
+<br/><br/>
+<a href="/users/new">Create a new user</a>
+
+</body>
+</html>
