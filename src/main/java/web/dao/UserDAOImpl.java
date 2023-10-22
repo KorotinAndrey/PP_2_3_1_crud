@@ -1,5 +1,6 @@
 package web.dao;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Repository;
 import web.model.User;
 
@@ -41,11 +42,13 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void updateUser (long id, User updatedUser) {
-        User user = entityManager.find(User.class, id);
-        user.setName(updatedUser.getName());
-        user.setSurname(updatedUser.getSurname());
-        user.setEmail(updatedUser.getEmail());
-        entityManager.persist(user);
+    public void updateUser(long id, User updatedUser) {
+            User user = entityManager.find(User.class, id);
+
+            if (user != null) {
+                BeanUtils.copyProperties(updatedUser, user, "id");
+
+                entityManager.merge(user);
+            }
+        }
     }
-}
